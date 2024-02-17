@@ -1,5 +1,5 @@
-<a
-  class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
+<article
+  class="shadow-md relative block overflow-hidden rounded-lg border border-slate-200 p-4 sm:p-6 lg:p-8"
 >
   <span
     class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
@@ -22,6 +22,7 @@
 
   <dl class="mt-6 flex justify-end gap-4 sm:gap-6">
     <a
+      (click)="toggleReplying()"
       class="group relative inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
     >
       <span class="absolute -start-full transition-all group-hover:start-4">
@@ -47,7 +48,11 @@
     </a>
     <button>12 Likes</button>
 
-    <button (click)="toggleExpanded()" [class.rotate-180]="isExpanded">
+    <button
+      (click)="toggleExpanded()"
+      class="duration-200"
+      [class.rotate-180]="isExpanded"
+    >
       <a
         class="inline-block rounded border border-current px-8 py-3 text-sm font-medium text-indigo-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
         ><svg
@@ -67,4 +72,11 @@
       </a>
     </button>
   </dl>
-</a>
+
+  @if (isReplying) {
+    <app-comment-form></app-comment-form>
+  }
+  @if (isExpanded) {
+    <section class="nested-comments">This shows nested comments</section>
+  }
+</article>
