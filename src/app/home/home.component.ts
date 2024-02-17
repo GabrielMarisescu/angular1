@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommentComponent } from '../components/comment/comment.component';
+import { ComentService } from '../services/coment.service';
+import { Comment } from '../interfaces/comment.interface';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -8,6 +10,15 @@ import { CommentComponent } from '../components/comment/comment.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-  test = 'test';
+export class HomeComponent implements OnInit {
+  comments = signal<Comment[]>([]);
+  constructor(private CommentService: ComentService) {}
+
+  ngOnInit(): void {}
+
+  getComments() {
+    this.CommentService.getComments().subscribe((comments) => {
+      this.comments.set(comments);
+    });
+  }
 }
